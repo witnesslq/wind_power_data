@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>风电数据分析</title>
+    <link rel="stylesheet" th:href="@{public/libs/easyui/themes/default/easyui.css}"/>
+    <link rel="stylesheet" th:href="@{public/libs/easyui/themes/icon.css}"/>
+    <link rel="stylesheet" th:href="@{public/libs/easyui/themes/color.css}"/>
+    <script th:src="@{/public/libs/echarts/echarts-3.7.1.min.js}"></script>
+    <script th:src="@{/public/libs/jquery/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/public/libs/My97DatePicker/WdatePicker.js}"></script>
+    <script th:src="@{/public/libs/easyui/jquery.easyui.min.js}"></script>
+    <script th:src="@{/public/js/simpleChart.js}"></script>
+</head>
+<body>
+开始时间：<input id="timeFrom" type="text" onclick="timeFromClick()"/>
+结束时间：<input id="toTime" type="text" onclick="toTimeClick()"/>
+<button onclick="getDataFormTime()">查询</button>
+<button onclick="getData()">查询全部</button>
+<div id="mainChart" style="width: 1500px;height: 800px"></div>
+</body>
+</html>
