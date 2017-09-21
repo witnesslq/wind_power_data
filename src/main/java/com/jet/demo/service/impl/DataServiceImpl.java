@@ -2,8 +2,10 @@ package com.jet.demo.service.impl;
 
 import com.jet.demo.mysql.entity.TimeWind;
 import com.jet.demo.mysql.entity.WindData;
+import com.jet.demo.mysql.entity.WindDataAbnormal;
 import com.jet.demo.mysql.entity.WindResult;
 import com.jet.demo.mysql.repository.TimeWindRepository;
+import com.jet.demo.mysql.repository.WindDataAbnormalRepository;
 import com.jet.demo.mysql.repository.WindDataRepository;
 import com.jet.demo.mysql.repository.WindResultRepository;
 import com.jet.demo.pojo.WindDataPojo;
@@ -12,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Copyright 2017 济中节能 All rights reserved.
@@ -29,9 +29,8 @@ public class DataServiceImpl implements IDataService {
     private WindResultRepository windResultRepository;
     @Autowired
     private WindDataRepository windDataRepository;
-
-    private static Long[] bladeIcing = new Long[]{1664L, 2320L, 2359L, 915L, 2330L, 2366L, 1331L, 1326L, 402L, 450L, 933L, 341L};
-    private static Long[] gearboxFailure = new Long[]{342L, 488L, 1724L, 212L, 2352L, 78L, 1369L, 23L, 1662L, 1360L, 794L, 235L, 500L, 453L, 344L, 599L, 373L};
+    @Autowired
+    private WindDataAbnormalRepository windDataAbnormalRepository;
 
     @Override
     public List<TimeWind> getFirst1000Data() {
@@ -54,8 +53,9 @@ public class DataServiceImpl implements IDataService {
         Sort sort = new Sort(Sort.Direction.ASC, "createTime");
         List<WindResult> windResults = windResultRepository.findAll(sort);
 
-        List bladeIcingList = Arrays.asList(bladeIcing);
-        List gearboxFailureList = Arrays.asList(gearboxFailure);
+        List<WindDataAbnormal> windDataAbnormals = windDataAbnormalRepository.findAll();
+        Map<Long, WindDataAbnormal> map = new HashMap<>();
+        windDataAbnormals.forEach(windDataAbnormal -> map.put(windDataAbnormal.getId(), windDataAbnormal));
         List<WindData> windDataNormal = new ArrayList<>();
         List<WindData> windDataException = new ArrayList<>();
         int size = windResults.size();
@@ -67,11 +67,9 @@ public class DataServiceImpl implements IDataService {
                     break;
                 }
             }
-            if (bladeIcingList.contains(d.getId())) {
-                d.setFaultCause("叶片结冰");
-            }
-            if (gearboxFailureList.contains(d.getId())) {
-                d.setFaultCause("齿轮箱失效");
+            WindDataAbnormal abnormal = map.get(d.getId());
+            if (abnormal != null) {
+                d.setFaultCause(abnormal.toString());
             }
             if (i == size - 1 || i < 0) {
                 windDataException.add(d);
