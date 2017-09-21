@@ -31,9 +31,9 @@ public class WindDataAbnormal {
     @Override
     public String toString() {
         if ("叶片结冰".equals(reason)) {
-            return "叶片结冰<br/>环境温度[°C]: " + t1 + "<br/>机舱内温度[°C]: " + t2;
+            return "叶片结冰<br/>环境温度[°C]： " + t1 + "<br/>机舱内温度[°C]：" + t2;
         } else if ("齿轮箱失效".equals(reason)) {
-            return "齿轮箱失效<br/>齿轮箱轴承温度[°C]: " + t1 + " <br/>齿轮箱油温[°C]: " + t2;
+            return "齿轮箱失效<br/>齿轮箱轴承温度[°C]： " + t1 + " <br/>齿轮箱油温[°C]： " + t2;
         } else {
             return null;
         }
