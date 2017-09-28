@@ -1,6 +1,7 @@
 package com.jet.demo.pojo;
 
 import com.jet.demo.mysql.entity.WindData;
+import com.jet.demo.mysql.entity.WindDataFactory;
 import com.jet.demo.mysql.entity.WindResult;
 
 import java.util.ArrayList;
@@ -17,13 +18,34 @@ public class WindDataPojo {
 
     private List<WindData> exceptionData = new ArrayList<>();
 
+    private List<WindData> factoryData = new ArrayList<>();
+
+    private List<WindDataFactory> factories = new ArrayList<>();
+
     public WindDataPojo() {
     }
 
-    public WindDataPojo(List<WindResult> resultData, List<WindData> normalData, List<WindData> exceptionData) {
+    public WindDataPojo(List<WindResult> resultData, List<WindData> normalData, List<WindData> exceptionData, List<WindDataFactory> factories) {
         this.resultData = resultData;
         this.normalData = normalData;
         this.exceptionData = exceptionData;
+        this.factories = factories;
+    }
+
+    public List<WindDataFactory> getFactories() {
+        return factories;
+    }
+
+    public void setFactories(List<WindDataFactory> factories) {
+        this.factories = factories;
+    }
+
+    public List<WindData> getFactoryData() {
+        return factoryData;
+    }
+
+    public void setFactoryData(List<WindData> factoryData) {
+        this.factoryData = factoryData;
     }
 
     public List<WindResult> getResultData() {

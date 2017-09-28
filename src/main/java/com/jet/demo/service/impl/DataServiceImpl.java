@@ -1,13 +1,7 @@
 package com.jet.demo.service.impl;
 
-import com.jet.demo.mysql.entity.TimeWind;
-import com.jet.demo.mysql.entity.WindData;
-import com.jet.demo.mysql.entity.WindDataAbnormal;
-import com.jet.demo.mysql.entity.WindResult;
-import com.jet.demo.mysql.repository.TimeWindRepository;
-import com.jet.demo.mysql.repository.WindDataAbnormalRepository;
-import com.jet.demo.mysql.repository.WindDataRepository;
-import com.jet.demo.mysql.repository.WindResultRepository;
+import com.jet.demo.mysql.entity.*;
+import com.jet.demo.mysql.repository.*;
 import com.jet.demo.pojo.WindDataPojo;
 import com.jet.demo.service.IDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +25,8 @@ public class DataServiceImpl implements IDataService {
     private WindDataRepository windDataRepository;
     @Autowired
     private WindDataAbnormalRepository windDataAbnormalRepository;
+    @Autowired
+    private WindDataFactoryRepository windDataFactoryRepository;
 
     @Override
     public List<TimeWind> getFirst1000Data() {
@@ -91,7 +87,9 @@ public class DataServiceImpl implements IDataService {
                 }
             }
         }
-        return new WindDataPojo(windResults, windDataNormal, windDataException);
+        // 设置厂家曲线
+        List<WindDataFactory> windDataFactories = windDataFactoryRepository.findAll();
+        return new WindDataPojo(windResults, windDataNormal, windDataException, windDataFactories);
     }
 
     private float getComputeValue(float x1, float y1, float x2, float y2, float x3) {

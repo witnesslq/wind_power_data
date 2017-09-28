@@ -45,7 +45,7 @@ function getData(timeFrom, toTime) {
         url = '/data/windDataJson?timeFrom=' + timeFrom + '&toTime=' + toTime;
     }
     $.get(url).done(function (mapData) {
-        var legends = ['正常数据', '训练异常数据', '训练拟合曲线', '训练拟合曲线上界', '训练拟合曲线下界'];
+        var legends = ['正常数据', '训练异常数据', '训练拟合曲线', '训练拟合曲线上界', '训练拟合曲线下界', '厂家曲线'];
         var data = mapData.resultData;
         var myRegressionPoints = [];
         var myRegressionDownPoints = [];
@@ -89,6 +89,12 @@ function getData(timeFrom, toTime) {
                 scatterException.push([exceptionData[i].windSpeed, exceptionData[i].powerValid]);
             }
         }
+
+        var factoriesData = mapData.factories;
+        var factoriesPoints = [];
+        for (var i = 0; i < factoriesData.length; i++) {
+            factoriesPoints.push([factoriesData[i].windSpeed, factoriesData[i].power]);
+        }
         var series = [{
             name: legends[0],
             type: 'scatter',
@@ -111,6 +117,10 @@ function getData(timeFrom, toTime) {
             name: legends[4],
             type: 'line',
             data: myRegressionDownPoints
+        }, {
+            name: legends[5],
+            type: 'line',
+            data: factoriesPoints
         }];
 
         myChart.hideLoading();

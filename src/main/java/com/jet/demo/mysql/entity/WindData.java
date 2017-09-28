@@ -20,6 +20,14 @@ public class WindData {
     @Transient
     private String faultCause;
 
+    public WindData() {
+    }
+
+    public WindData(float windSpeed, float powerValid) {
+        this.windSpeed = windSpeed;
+        this.powerValid = powerValid;
+    }
+
     public Long getId() {
         return id;
     }
