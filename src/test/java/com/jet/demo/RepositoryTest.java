@@ -1,6 +1,7 @@
 package com.jet.demo;
 
 import com.jet.demo.mysql.entity.TimeWind;
+import com.jet.demo.mysql.repository.JdbcTemplateDAO;
 import com.jet.demo.mysql.repository.TimeWindRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,9 +22,14 @@ public class RepositoryTest {
     @Autowired
     private TimeWindRepository timeWindRepository;
 
+    @Autowired
+    private JdbcTemplateDAO jdbcTemplateDAO;
+
     @Test
     public void test1(){
         List<TimeWind> result = timeWindRepository.findTop1000();
         System.out.println(result);
+
+        System.out.println(jdbcTemplateDAO.count());
     }
 }
