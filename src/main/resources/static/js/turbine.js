@@ -15,6 +15,7 @@ function showCharts(divId, equipId, equipName) {
     var data2 = [];
     var data3 = [];
     var data4 = [];
+    var data5 = [];
 
     var option = {
         title: {
@@ -35,7 +36,7 @@ function showCharts(divId, equipId, equipName) {
                 if (tparam[1] > ucl[1]) {
                     tipstr += '<div style="color: red">即将断裂</div>';
                 } else {
-                    tipstr += '<div style="color: green">正常</div>';
+                    tipstr += '<div>正常</div>';
                 }
                 return tipstr;
             },
@@ -67,6 +68,7 @@ function showCharts(divId, equipId, equipName) {
             nameLocation: 'middle',
             type: 'value',
             boundaryGap: [0, '100%'],
+            max: 0.8,
             splitLine: {
                 // show: true
             }
@@ -76,25 +78,71 @@ function showCharts(divId, equipId, equipName) {
             type: 'line',
             showSymbol: false,
             hoverAnimation: false,
-            data: data1
+            data: data1,
+            itemStyle: {
+                normal: {
+                    lineStyle: {
+                        color: '#0054A6',
+                        width: 2
+                    }
+                }
+            }
         }, {
             name: 'UCL',
             type: 'line',
             showSymbol: false,
             hoverAnimation: false,
-            data: data2
+            data: data2,
+            itemStyle: {
+                normal: {
+                    lineStyle: {
+                        color: '#931313',
+                        width: 1
+                    }
+                }
+            }
         }, {
             name: 'X',
             type: 'line',
             showSymbol: false,
             hoverAnimation: false,
-            data: data3
+            data: data3,
+            itemStyle: {
+                normal: {
+                    lineStyle: {
+                        color: '#00841F',
+                        width: 1
+                    }
+                }
+            }
         }, {
             name: 'LCL',
             type: 'line',
             showSymbol: false,
             hoverAnimation: false,
-            data: data4
+            data: data4,
+            itemStyle: {
+                normal: {
+                    lineStyle: {
+                        color: '#931313',
+                        width: 1
+                    }
+                }
+            }
+        }, {
+            name: 'error',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
+            data: data5,
+            itemStyle: {
+                normal: {
+                    lineStyle: {
+                        color: '#CE0000',
+                        width: 2
+                    }
+                }
+            }
         }]
     };
 
@@ -105,6 +153,13 @@ function showCharts(divId, equipId, equipName) {
         data2 = mapData.ucl;
         data3 = mapData.x;
         data4 = mapData.lcl;
+        for (var i = 0; i < mapData.values.length; i++) {
+            var point = mapData.values[i];
+            var uclPoint = mapData.ucl[i];
+            if (point[1] > uclPoint[1]) {
+                data5.push(mapData.values[i]);
+            }
+        }
         option.series[0].data = data1;
         option.series[1].data = data2;
         option.series[2].data = data3;
@@ -119,13 +174,18 @@ function showCharts(divId, equipId, equipName) {
                 data3.shift();
                 data4.shift();
                 for (var i = 0; i < rdata.values.length; i++) {
+                    var point = rdata.values[i];
+                    var uclPoint = rdata.ucl[i];
+                    if (point[1] > uclPoint[1]) {
+                        data5.push(rdata.values[i]);
+                    }
                     data1.push(rdata.values[i]);
                     data2.push(rdata.ucl[i]);
                     data3.push(rdata.x[i]);
                     data4.push(rdata.lcl[i]);
                 }
                 myChart.setOption({
-                    series: [{data: data1}, {data: data2}, {data: data3}, {data: data4}]
+                    series: [{data: data1}, {data: data2}, {data: data3}, {data: data4}, {data: data5}]
                 });
             });
         }, 3000);
