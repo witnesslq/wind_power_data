@@ -49,7 +49,7 @@ function showCharts(divId, equipId, equipName) {
             x: 'right',
             orient: 'vertical',
             bottom: 70,
-            itemGap: 45
+            itemGap: 85
         },
         xAxis: {
             type: 'time',
@@ -139,14 +139,14 @@ function showCharts(divId, equipId, equipName) {
                 normal: {
                     lineStyle: {
                         color: '#CE0000',
-                        width: 2
+                        width: 4
                     }
                 }
             }
         }]
     };
 
-    var begin = 145;
+    var begin = 864;
     var url = "/data/turbineData?id="
     $.get(url + equipId + "&number=" + begin).done(function (mapData) {
         data1 = mapData.values;
@@ -169,10 +169,15 @@ function showCharts(divId, equipId, equipName) {
         setInterval(function () {
             begin += 144;
             $.get(url + equipId + "&number=" + begin).done(function (rdata) {
-                data1.shift();
-                data2.shift();
-                data3.shift();
-                data4.shift();
+                if (rdata.values.length === 0){
+                    return;
+                }
+                for (var i = 0; i <= 144; i++) {
+                    data1.shift();
+                    data2.shift();
+                    data3.shift();
+                    data4.shift();
+                }
                 for (var i = 0; i < rdata.values.length; i++) {
                     var point = rdata.values[i];
                     var uclPoint = rdata.ucl[i];

@@ -103,12 +103,15 @@ public class DataServiceImpl implements IDataService {
         //1. 获取设备
         TurbineEquip turbineEquip = turbineEquipRepository.findById(id);
         //2. 获取数据
-        int start = 0, end = 145;
-        if (number != null && number > 145) {
+        int start = 0, end = 864;
+        if (number != null && number > 864) {
             start = number;
             end = 144;
         }
         List<TurbineData> turbineData = turbineDataRepository.findLimitByEquipName(turbineEquip.getName(), start, end);
+        if (turbineData == null){
+            return null;
+        }
         List<List<Object>> values = new ArrayList<>();
         List<List<Object>> ucl = new ArrayList<>();
         List<List<Object>> x = new ArrayList<>();
