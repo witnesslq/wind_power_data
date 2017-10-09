@@ -22,12 +22,33 @@ function showCharts(divId, equipId, equipName) {
         },
         tooltip: {
             trigger: 'axis',
+            formatter: function (params) {
+                var tparam = params[0].data;
+                var ucl = params[1].data;
+                var date = new Date(tparam[0]);
+                var tipstr = '<div>时间：' + date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' '
+                    + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '</div>'
+                    + '<div>' + params[0].seriesName + '：  ' + params[0].data[1] + '</div>'
+                    + '<div>' + params[1].seriesName + '： ' + params[1].data[1] + '</div>'
+                    + '<div>' + params[2].seriesName + '： ' + params[2].data[1] + '</div>'
+                    + '<div>' + params[3].seriesName + '： ' + params[3].data[1] + '</div>'
+                if (tparam[1] > ucl[1]) {
+                    tipstr += '<div style="color: red">即将断裂</div>';
+                } else {
+                    tipstr += '<div style="color: green">正常</div>';
+                }
+                return tipstr;
+            },
             axisPointer: {
                 animation: false
             }
         },
         legend: {
-            data: ['Turbine No.1', 'UCL', 'X', 'LCL']
+            data: ['UCL', 'X', 'LCL'],
+            x: 'right',
+            orient: 'vertical',
+            bottom: 70,
+            itemGap: 45
         },
         xAxis: {
             type: 'time',
@@ -63,7 +84,7 @@ function showCharts(divId, equipId, equipName) {
             hoverAnimation: false,
             data: data2
         }, {
-            name: '',
+            name: 'X',
             type: 'line',
             showSymbol: false,
             hoverAnimation: false,
@@ -84,15 +105,15 @@ function showCharts(divId, equipId, equipName) {
         data2 = mapData.ucl;
         data3 = mapData.x;
         data4 = mapData.lcl;
-        option.series[0].data = mapData.values;
-        option.series[1].data = mapData.ucl;
-        option.series[2].data = mapData.x;
-        option.series[3].data = mapData.lcl;
+        option.series[0].data = data1;
+        option.series[1].data = data2;
+        option.series[2].data = data3;
+        option.series[3].data = data4;
         myChart.setOption(option);
         myChart.hideLoading();
         setInterval(function () {
-            begin += 12;
-            $.get(url + 1 + "&number=" + begin).done(function (rdata) {
+            begin += 144;
+            $.get(url + equipId + "&number=" + begin).done(function (rdata) {
                 data1.shift();
                 data2.shift();
                 data3.shift();

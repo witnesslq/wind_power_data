@@ -106,7 +106,7 @@ public class DataServiceImpl implements IDataService {
         int start = 0, end = 145;
         if (number != null && number > 145) {
             start = number;
-            end = 6;
+            end = 144;
         }
         List<TurbineData> turbineData = turbineDataRepository.findLimitByEquipName(turbineEquip.getName(), start, end);
         List<List<Object>> values = new ArrayList<>();
