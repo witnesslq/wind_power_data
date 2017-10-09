@@ -2,12 +2,14 @@ package com.jet.demo.service.impl;
 
 import com.jet.demo.mysql.entity.*;
 import com.jet.demo.mysql.repository.*;
+import com.jet.demo.pojo.TurbineDataPojo;
 import com.jet.demo.pojo.WindDataPojo;
 import com.jet.demo.service.IDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneOffset;
 import java.util.*;
 
 /**
@@ -27,6 +29,10 @@ public class DataServiceImpl implements IDataService {
     private WindDataAbnormalRepository windDataAbnormalRepository;
     @Autowired
     private WindDataFactoryRepository windDataFactoryRepository;
+    @Autowired
+    private TurbineEquipRepository turbineEquipRepository;
+    @Autowired
+    private TurbineDataRepository turbineDataRepository;
 
     @Override
     public List<TimeWind> getFirst1000Data() {
@@ -90,6 +96,47 @@ public class DataServiceImpl implements IDataService {
         // 设置厂家曲线
         List<WindDataFactory> windDataFactories = windDataFactoryRepository.findAll();
         return new WindDataPojo(windResults, windDataNormal, windDataException, windDataFactories);
+    }
+
+    @Override
+    public TurbineDataPojo first500Data(Integer id, Integer number) {
+        //1. 获取设备
+        TurbineEquip turbineEquip = turbineEquipRepository.findById(id);
+        //2. 获取数据
+        int start = 0, end = 145;
+        if (number != null && number > 145) {
+            start = number;
+            end = 6;
+        }
+        List<TurbineData> turbineData = turbineDataRepository.findLimitByEquipName(turbineEquip.getName(), start, end);
+        List<List<Object>> values = new ArrayList<>();
+        List<List<Object>> ucl = new ArrayList<>();
+        List<List<Object>> x = new ArrayList<>();
+        List<List<Object>> lcl = new ArrayList<>();
+        for (TurbineData data : turbineData) {
+            List<Object> list1 = new ArrayList<>();
+            List<Object> list2 = new ArrayList<>();
+            List<Object> list3 = new ArrayList<>();
+            List<Object> list4 = new ArrayList<>();
+            list1.add(data.getTime());
+            list2.add(data.getTime());
+            list3.add(data.getTime());
+            list4.add(data.getTime());
+            list1.add(data.getValue());
+            list2.add(turbineEquip.getUcl());
+            list3.add(turbineEquip.getX());
+            list4.add(turbineEquip.getLcl());
+            values.add(list1);
+            ucl.add(list2);
+            x.add(list3);
+            lcl.add(list4);
+        }
+        TurbineDataPojo result = new TurbineDataPojo();
+        result.setValues(values);
+        result.setUcl(ucl);
+        result.setX(x);
+        result.setLcl(lcl);
+        return result;
     }
 
     private float getComputeValue(float x1, float y1, float x2, float y2, float x3) {

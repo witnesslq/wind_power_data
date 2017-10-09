@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>风电数据</title>
+    <script th:src="@{/public/libs/echarts/echarts-3.7.1.min.js}"></script>
+    <script th:src="@{/public/libs/jquery/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/public/js/turbine.js}"></script>
+</head>
+<body>
+<div id="mainChart1" style="width:1200px;height:400px;"></div>
+<div id="mainChart2" style="width:1200px;height:400px;"></div>
+<a th:href="@{/simpleChart}">风电分析</a>
+</body>
+</html>
