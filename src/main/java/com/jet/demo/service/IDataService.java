@@ -1,7 +1,7 @@
 package com.jet.demo.service;
 
 import com.jet.demo.mysql.entity.TimeWind;
-import com.jet.demo.pojo.TurbineDataPojo;
+import com.jet.demo.pojo.BlowerDataPojo;
 import com.jet.demo.pojo.WindDataPojo;
 
 import java.util.List;
@@ -17,5 +17,7 @@ public interface IDataService {
 
     WindDataPojo getWindData(String timeFrom, String toTime);
 
-    TurbineDataPojo first500Data(Integer id, Integer number);
+    BlowerDataPojo turbineData(Integer id, Integer number);
+
+    BlowerDataPojo gearboxData(Integer id, Integer number);
 }

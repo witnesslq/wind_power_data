@@ -7,8 +7,8 @@ import javax.persistence.*;
  * Created by LiLei on 2017/10/9 9:06.
  */
 @Entity
-@Table(name = "turbine_equip")
-public class TurbineEquip {
+@Table(name = "gearbox_equip")
+public class GearboxEquip {
 
 
     @Column(name = "id", nullable = false)

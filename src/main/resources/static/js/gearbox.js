@@ -2,8 +2,8 @@
  * Created by LL on 2017/9/18.
  */
 var t1 = setTimeout(function () {
-    showCharts("mainChart1", 1, "Turbine No.1");
-    showCharts("mainChart2", 2, "Turbine No.2");
+    showCharts("mainChart1", 1, "Gearbox No.1");
+    showCharts("mainChart2", 2, "Gearbox No.2");
     window.clearTimeout(t1);
 }, 50);
 
@@ -40,7 +40,7 @@ function showCharts(divId, equipId, equipName) {
                     + '<div>' + params[2].seriesName + '： ' + params[2].data[1] + '</div>'
                     + '<div>' + params[3].seriesName + '： ' + params[3].data[1] + '</div>'
                 if (tparam[1] > ucl[1]) {
-                    tipstr += '<div style="color: red">即将断裂</div>';
+                    tipstr += '<div style="color: red">预警状态</div>';
                 } else {
                     tipstr += '<div>正常</div>';
                 }
@@ -74,7 +74,8 @@ function showCharts(divId, equipId, equipName) {
             nameLocation: 'middle',
             type: 'value',
             boundaryGap: [0, '100%'],
-            max: 0.8,
+            max: 30,
+            min: -15,
             splitLine: {
                 // show: true
             }
@@ -153,7 +154,7 @@ function showCharts(divId, equipId, equipName) {
     };
 
     var begin = 864; // 查寻开始7天
-    var url = "/data/turbineData?id="
+    var url = "/data/gearboxData?id="
     $.get(url + equipId + "&number=" + begin).done(function (mapData) {
         data1 = mapData.valuesLine;
         data2 = mapData.uclLine;

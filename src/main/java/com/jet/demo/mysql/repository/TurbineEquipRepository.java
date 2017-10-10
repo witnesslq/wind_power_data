@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TurbineEquipRepository extends JpaRepository<TurbineEquip, Integer> {
 
-    TurbineEquip findByName(String name);
+    TurbineEquip findByEquipName(String equipName);
 
     TurbineEquip findById(int id);
 }

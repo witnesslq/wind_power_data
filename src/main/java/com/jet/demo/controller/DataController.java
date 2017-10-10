@@ -1,7 +1,7 @@
 package com.jet.demo.controller;
 
 import com.jet.demo.mysql.entity.TimeWind;
-import com.jet.demo.pojo.TurbineDataPojo;
+import com.jet.demo.pojo.BlowerDataPojo;
 import com.jet.demo.pojo.WindDataPojo;
 import com.jet.demo.service.IDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,13 @@ public class DataController {
 
     @RequestMapping(value = "/turbineData", method = RequestMethod.GET)
     @ResponseBody
-    public TurbineDataPojo first500Data(Integer id, Integer number) {
-        return dataService.first500Data(id, number);
+    public BlowerDataPojo turbineData(Integer id, Integer number) {
+        return dataService.turbineData(id, number);
+    }
+
+    @RequestMapping(value = "/gearboxData", method = RequestMethod.GET)
+    @ResponseBody
+    public BlowerDataPojo gearboxData(Integer id, Integer number) {
+        return dataService.gearboxData(id, number);
     }
 }
