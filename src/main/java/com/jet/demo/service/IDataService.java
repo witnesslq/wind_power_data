@@ -20,4 +20,6 @@ public interface IDataService {
     BlowerDataPojo turbineData(Integer id, Integer number);
 
     BlowerDataPojo gearboxData(Integer id, Integer number);
+
+    List<List<Object>> turboData(Integer type, Integer number);
 }

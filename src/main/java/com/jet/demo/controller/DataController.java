@@ -52,4 +52,10 @@ public class DataController {
     public BlowerDataPojo gearboxData(Integer id, Integer number) {
         return dataService.gearboxData(id, number);
     }
+
+    @RequestMapping(value = "/turboData", method = RequestMethod.GET)
+    @ResponseBody
+    public List<List<Object>> turboData(Integer type, Integer number) {
+        return dataService.turboData(type, number);
+    }
 }
