@@ -28,6 +28,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("windSpeed");
+        registry.addViewController("/windSpeed").setViewName("windSpeed");
         registry.addViewController("/simpleChart").setViewName("simpleChart");
         registry.addViewController("/demo").setViewName("demo");
         registry.addViewController("/turbine").setViewName("turbine");
