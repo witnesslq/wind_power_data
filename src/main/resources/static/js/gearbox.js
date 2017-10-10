@@ -65,7 +65,8 @@ function showCharts(divId, equipId, equipName) {
             name: '时间',
             nameLocation: 'middle',
             nameGap: 35,
-            nameTextStyle: {fontWeight: 'lighter', fontSize: 13}
+            nameTextStyle: {fontWeight: 'lighter', fontSize: 13},
+            maxInterval: 3600 * 24 * 1000 //坐标轴分割刻度最大为一天
         },
         yAxis: {
             name: 'EWMA',
