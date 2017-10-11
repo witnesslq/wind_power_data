@@ -17,6 +17,10 @@ function showCharts(divId, type, equipName) {
     var myChart = echarts.init(document.getElementById(divId));
     myChart.showLoading();
     var data1 = [];
+    var color = "#0054A6";
+    if (type === 1){
+        color = "#FF2020";
+    }
     var option = {
         title: {
             text: equipName
@@ -30,12 +34,12 @@ function showCharts(divId, type, equipName) {
                     str = "<div>" + tparam.seriesName + "</div>" +
                         "<div>时间（秒）：" + tparam.value[0] + "</div>" +
                         "<div>振幅A：" + tparam.value[1] + "</div>" +
-                        "<div>状态：" + "<a style='color: darkred'>涡带，异常</a>" + "</div>"
+                        "<div>状态：" + "<a style='color: red'>涡带，异常</a>" + "</div>"
                 } else if (type === 2) {
                     str = "<div>" + tparam.seriesName + "</div>" +
                         "<div>时间（秒）：" + tparam.value[0] + "</div>" +
                         "<div>振幅A：" + tparam.value[1] + "</div>" +
-                        "<div>状态：" + "<a style='color: #3c8b3c'>稳态，正常</a>" + "</div>"
+                        "<div>状态：" + "<a style='color: darkgreen'>稳态，正常</a>" + "</div>"
                 }
                 return str;
 
@@ -87,7 +91,7 @@ function showCharts(divId, type, equipName) {
             itemStyle: {
                 normal: {
                     lineStyle: {
-                        color: '#0054A6',
+                        color: color,
                         width: 2
                     }
                 }

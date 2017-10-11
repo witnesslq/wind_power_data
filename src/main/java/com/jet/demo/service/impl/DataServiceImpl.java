@@ -192,12 +192,12 @@ public class DataServiceImpl implements IDataService {
             list2.add(data.getTime());
             list3.add(data.getTime());
             list4.add(data.getTime());
-            list1.add(data.getValue());
+            list1.add(MathUtil.keepDigitsAfterPoint(data.getValue(), 4));
             list2.add(gearboxEquip.getUcl());
             list3.add(gearboxEquip.getX());
             list4.add(gearboxEquip.getLcl());
             if (data.getValue() > gearboxEquip.getUcl()) {
-                list5.add(data.getValue());
+                list5.add(MathUtil.keepDigitsAfterPoint(data.getValue(), 4));
                 errorLine.add(list1);
             } else {
                 list5.add(null);
@@ -238,7 +238,7 @@ public class DataServiceImpl implements IDataService {
             // 获取vortex_strip
             turboDataList.forEach(turboData -> {
                 List<Object> list = new ArrayList<>();
-                list.add(String.format("%E", Double.parseDouble(turboData.getT())));
+                list.add(String.format("%.4E", Double.parseDouble(turboData.getT())));
                 list.add(MathUtil.keepDigitsAfterPoint(turboData.getVortexStrip(), 1));
                 result.add(list);
             });
@@ -246,7 +246,7 @@ public class DataServiceImpl implements IDataService {
             // 获取steady_state
             turboDataList.forEach(turboData -> {
                 List<Object> list = new ArrayList<>();
-                list.add(String.format("%E", Double.parseDouble(turboData.getT())));
+                list.add(String.format("%.4E", Double.parseDouble(turboData.getT())));
                 list.add(MathUtil.keepDigitsAfterPoint(turboData.getSteadyState(), 1));
                 result.add(list);
             });
