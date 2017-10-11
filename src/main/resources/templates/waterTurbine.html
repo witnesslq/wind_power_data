@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>风电数据</title>
+    <script th:src="@{/public/libs/echarts/echarts-3.7.1.min.js}"></script>
+    <script th:src="@{/public/libs/jquery/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/public/js/waterTurbine.js}"></script>
+</head>
+<body>
+<h3 style="text-align: center;width: 1200px">水轮机故障综合诊断</h3>
+<div id="mainChart" style="width:1200px;height:800px;"></div>
+<a th:href="@{/windSpeed}">返回</a>
+</body>
+</html>

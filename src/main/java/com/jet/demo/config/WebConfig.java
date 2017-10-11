@@ -34,6 +34,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/turbine").setViewName("turbine");
         registry.addViewController("/gearbox").setViewName("gearbox");
         registry.addViewController("/turbo").setViewName("turbo");
+        registry.addViewController("/waterTurbine").setViewName("waterTurbine");
     }
 
     /*添加资源处理器*/

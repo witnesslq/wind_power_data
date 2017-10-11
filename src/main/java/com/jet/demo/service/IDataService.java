@@ -2,6 +2,7 @@ package com.jet.demo.service;
 
 import com.jet.demo.mysql.entity.TimeWind;
 import com.jet.demo.pojo.BlowerDataPojo;
+import com.jet.demo.pojo.WaterTurbineDataPojo;
 import com.jet.demo.pojo.WindDataPojo;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface IDataService {
     BlowerDataPojo gearboxData(Integer id, Integer number);
 
     List<List<Object>> turboData(Integer type, Integer number);
+
+    WaterTurbineDataPojo waterTurbine(Integer number);
 }

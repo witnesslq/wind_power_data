@@ -2,6 +2,7 @@ package com.jet.demo.controller;
 
 import com.jet.demo.mysql.entity.TimeWind;
 import com.jet.demo.pojo.BlowerDataPojo;
+import com.jet.demo.pojo.WaterTurbineDataPojo;
 import com.jet.demo.pojo.WindDataPojo;
 import com.jet.demo.service.IDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,11 @@ public class DataController {
     @ResponseBody
     public List<List<Object>> turboData(Integer type, Integer number) {
         return dataService.turboData(type, number);
+    }
+
+    @RequestMapping(value = "/waterTurbine", method = RequestMethod.GET)
+    @ResponseBody
+    public WaterTurbineDataPojo waterTurbine(Integer number) {
+        return dataService.waterTurbine(number);
     }
 }

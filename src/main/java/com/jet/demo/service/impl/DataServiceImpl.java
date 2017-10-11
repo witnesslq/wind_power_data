@@ -3,6 +3,7 @@ package com.jet.demo.service.impl;
 import com.jet.demo.mysql.entity.*;
 import com.jet.demo.mysql.repository.*;
 import com.jet.demo.pojo.BlowerDataPojo;
+import com.jet.demo.pojo.WaterTurbineDataPojo;
 import com.jet.demo.pojo.WindDataPojo;
 import com.jet.demo.service.IDataService;
 import com.jet.demo.utils.MathUtil;
@@ -39,6 +40,8 @@ public class DataServiceImpl implements IDataService {
     private GearboxDataRepository gearboxDataRepository;
     @Autowired
     private TurboDataRepository turboDataRepository;
+    @Autowired
+    private WaterTurbineDataRepository waterTurbineDataRepository;
 
     @Override
     public List<TimeWind> getFirst1000Data() {
@@ -251,6 +254,44 @@ public class DataServiceImpl implements IDataService {
                 result.add(list);
             });
         }
+        return result;
+    }
+
+    @Override
+    public WaterTurbineDataPojo waterTurbine(Integer number) {
+        int start = 0, end = 100;
+        if (number != null && number > 100) {
+            start = number;
+            end = 50;
+        }
+        List<WaterTurbineData> waterTurbineDataList = waterTurbineDataRepository.findLimitByNumber(start, end);
+        WaterTurbineDataPojo result = new WaterTurbineDataPojo();
+        waterTurbineDataList.forEach(waterTurbineData -> {
+            List<Object> x1 = new ArrayList<>();
+            List<Object> x2 = new ArrayList<>();
+            List<Object> x3 = new ArrayList<>();
+            List<Object> y1 = new ArrayList<>();
+            List<Object> y2 = new ArrayList<>();
+            List<Object> y3 = new ArrayList<>();
+            x1.add(waterTurbineData.getTime().getTime());
+            x2.add(waterTurbineData.getTime().getTime());
+            x3.add(waterTurbineData.getTime().getTime());
+            y1.add(waterTurbineData.getTime().getTime());
+            y2.add(waterTurbineData.getTime().getTime());
+            y3.add(waterTurbineData.getTime().getTime());
+            x1.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getX1(),3));
+            x2.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getX2(),3));
+            x3.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getX3(),3));
+            y1.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getY1(),3));
+            y2.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getY2(),3));
+            y3.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getY3(),3));
+            result.getX1Line().add(x1);
+            result.getX2Line().add(x2);
+            result.getX3Line().add(x3);
+            result.getY1Line().add(y1);
+            result.getY2Line().add(y2);
+            result.getY3Line().add(y3);
+        });
         return result;
     }
 
