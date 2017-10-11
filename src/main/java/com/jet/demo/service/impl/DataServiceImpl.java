@@ -114,7 +114,7 @@ public class DataServiceImpl implements IDataService {
         //2. 获取数据
         int start = 0, end = 864;
         if (number != null && number > 864) {
-            start = number;
+            start = number - 144;
             end = 144;
         }
         List<TurbineData> turbineData = turbineDataRepository.findLimitByEquipName(turbineEquip.getEquipName(), start, end);
@@ -228,7 +228,7 @@ public class DataServiceImpl implements IDataService {
         // 查询数据
         int start = 0, end = 1000;
         if (number != null && number > 1000) {
-            start = number;
+            start = number - 1000;
             end = 1000;
         }
         List<TurboData> turboDataList = turboDataRepository.findLimitByNumber(start, end);
@@ -261,7 +261,7 @@ public class DataServiceImpl implements IDataService {
     public WaterTurbineDataPojo waterTurbine(Integer number) {
         int start = 0, end = 100;
         if (number != null && number > 100) {
-            start = number;
+            start = number - 50;
             end = 50;
         }
         List<WaterTurbineData> waterTurbineDataList = waterTurbineDataRepository.findLimitByNumber(start, end);
@@ -279,12 +279,12 @@ public class DataServiceImpl implements IDataService {
             y1.add(waterTurbineData.getTime().getTime());
             y2.add(waterTurbineData.getTime().getTime());
             y3.add(waterTurbineData.getTime().getTime());
-            x1.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getX1(),3));
-            x2.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getX2(),3));
-            x3.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getX3(),3));
-            y1.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getY1(),3));
-            y2.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getY2(),3));
-            y3.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getY3(),3));
+            x1.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getX1(), 3));
+            x2.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getX2(), 3));
+            x3.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getX3(), 3));
+            y1.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getY1(), 3));
+            y2.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getY2(), 3));
+            y3.add(MathUtil.keepDigitsAfterPoint(waterTurbineData.getY3(), 3));
             result.getX1Line().add(x1);
             result.getX2Line().add(x2);
             result.getX3Line().add(x3);
