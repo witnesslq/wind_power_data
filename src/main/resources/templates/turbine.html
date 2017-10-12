@@ -6,11 +6,19 @@
     <script th:src="@{/public/libs/echarts/echarts-3.7.1.min.js}"></script>
     <script th:src="@{/public/libs/jquery/jquery-3.1.1.min.js}"></script>
     <script th:src="@{/public/js/turbine.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{public/css/basic.css}"/>
 </head>
 <body>
-<h3 style="text-align: center;width: 1200px">风机叶片断裂诊断</h3>
-<div id="mainChart1" style="width:1200px;height:400px;"></div>
-<div id="mainChart2" style="width:1200px;height:400px;"></div>
-<a th:href="@{/windSpeed}">返回</a>
+<div id="d0">
+    <h3 style="text-align: center;">风机叶片断裂预警</h3>
+    <div id="charts">
+        <div id="mainChart1" style="width:960px;height:400px;"></div>
+        <div id="mainChart2" style="width:960px;height:400px;"></div>
+    </div>
+    <p id="explain">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;深度学习模型预测误差超出EWMA控制图边界即进入预警状态
+    </p>
+</div>
+<div id="d1"><a th:href="@{/windSpeed}">返回</a></div>
 </body>
 </html>
